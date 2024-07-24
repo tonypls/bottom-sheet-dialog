@@ -80,8 +80,8 @@ Here's a basic example of how to use bottom-sheet-dialog:
     </div>
 
     <script type="module">
-      import { createBottomSheet } from "bottom-sheet-dialog";
-
+         //
+         import { createBottomSheet } from "https://unpkg.com/bottom-sheet-dialog/dist/index.js";
       const bottomSheetElement = document.getElementById("bottom-sheet");
 
       const bottomSheet = createBottomSheet(bottomSheetElement, {
@@ -96,6 +96,45 @@ Here's a basic example of how to use bottom-sheet-dialog:
     </script>
   </body>
 </html>
+```
+
+### React Example
+
+```TypeScript
+import { createBottomSheet } from 'bottom-sheet-dialog';
+import React, { useEffect, useRef } from 'react';
+
+interface ReactBottomSheetProps {
+  children: React.ReactNode;
+  snapPoints?: number[];
+  backgroundColor?: string;
+  excludeElementRef?: React.RefObject<HTMLElement>;
+}
+
+export function ReactBottomSheet({
+  children,
+  snapPoints,
+  backgroundColor = 'white',
+  excludeElementRef,
+}: ReactBottomSheetProps) {
+  const bottomSheetReference = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (bottomSheetReference.current) {
+      const bottomSheet = createBottomSheet(bottomSheetReference.current, {
+        snapPoints,
+        backgroundColor,
+        excludeElement: excludeElementRef?.current || undefined,
+      });
+
+      return () => {
+        bottomSheet.destroy();
+      };
+    }
+  }, [snapPoints, backgroundColor, excludeElementRef]);
+
+  return <div ref={bottomSheetReference}>{children}</div>;
+}
 ```
 
 ## API
