@@ -80,7 +80,7 @@ Here's a basic example of how to use bottom-sheet-dialog:
     </div>
 
     <script type="module">
-      import { createBottomSheet } from "../dist/index.js";
+      import { createBottomSheet } from "bottom-sheet-dialog";
 
       const bottomSheetElement = document.getElementById("bottom-sheet");
 
