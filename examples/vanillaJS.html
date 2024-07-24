@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bottom Sheet Dialog Example</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      #app {
+        padding: 20px;
+      }
+      #bottom-sheet {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        background-color: white;
+      }
+      button {
+        margin: 10px 0;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Bottom Sheet Dialog Example</h1>
+      <button id="open-sheet">Open Bottom Sheet</button>
+
+      <div id="bottom-sheet">
+        <div class="sheet-content">
+          <h2>Custom Component</h2>
+          <p>This is a custom component inside the bottom sheet.</p>
+          <button id="close-sheet">Close Sheet</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { createBottomSheet } from "../dist/index.js";
+
+      const bottomSheetElement = document.getElementById("bottom-sheet");
+      const openButton = document.getElementById("open-sheet");
+      const closeButton = document.getElementById("close-sheet");
+
+      const bottomSheet = createBottomSheet(bottomSheetElement, {
+        snapPoints: [100, 300, window.innerHeight - 50],
+        backgroundColor: "white",
+        onOpen: () => console.log("Bottom sheet opened"),
+        onClose: () => console.log("Bottom sheet closed"),
+        onSnap: (snapIndex) => console.log(`Snapped to index ${snapIndex}`),
+      });
+
+      // Initially close the sheet
+      bottomSheet.snapTo(0);
+
+      openButton.addEventListener("click", () => {
+        bottomSheet.snapTo(2); // Open to full height
+      });
+
+      closeButton.addEventListener("click", () => {
+        bottomSheet.snapTo(0); // Close the sheet
+      });
+
+      // Clean up on page unload
+      window.addEventListener("unload", () => {
+        bottomSheet.destroy();
+      });
+    </script>
+  </body>
+</html>
