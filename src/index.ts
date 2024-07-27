@@ -14,14 +14,29 @@ export interface BottomSheetProps extends BottomSheetEvents {
 
 function createBackdropElement(bgColor: string): HTMLDivElement {
   const backdrop = document.createElement("div");
-  Object.assign(backdrop.style, {
-    position: "absolute",
-    left: "0",
-    right: "0",
-    bottom: "0",
-    backgroundColor: bgColor,
-    transition: "height 0.3s ease-out",
-  });
+  const hasTailwindBackground = bgColor.includes("bg-");
+
+  if (!hasTailwindBackground) {
+    Object.assign(backdrop.style, {
+      position: "absolute",
+      left: "0",
+      right: "0",
+      bottom: "0",
+      backgroundColor: bgColor,
+      transition: "height 0.3s ease-out",
+    });
+  }
+  if (hasTailwindBackground) {
+    Object.assign(backdrop.style, {
+      position: "absolute",
+      left: "0",
+      right: "0",
+      bottom: "0",
+      transition: "height 0.3s ease-out",
+    });
+    backdrop.classList.add(bgColor);
+  }
+
   return backdrop;
 }
 
@@ -46,6 +61,8 @@ export function createBottomSheet(
   props: BottomSheetProps
 ) {
   const { backgroundColor = "white" } = props;
+  console.log("sda");
+
   const state = {
     currentSnap: 0,
     childrenHeight: 0,
@@ -56,6 +73,7 @@ export function createBottomSheet(
   const childrenElement = element.children[0] as HTMLElement;
 
   function init(): () => void {
+    console.log("init");
     setupElementStyles(element);
     element.append(backdropElement);
     updateChildrenHeight();
@@ -340,6 +358,18 @@ export function createBottomSheet(
     snapTo,
     destroy: () => {
       removeListeners();
+      element.removeChild(backdropElement);
+      // Reset styles
+      element.style.position = "";
+      element.style.bottom = "";
+      element.style.left = "";
+      element.style.right = "";
+      element.style.touchAction = "";
+      element.style.transition = "";
+      element.style.height = "";
+      // Remove accessibility attributes
+      element.removeAttribute("role");
+      element.removeAttribute("aria-modal");
     },
   };
 }
