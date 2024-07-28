@@ -12,6 +12,8 @@ This bottom sheet is designed to do as little as the styling as possible so this
 
 [NPM](https://www.npmjs.com/package/bottom-sheet-dialog)
 
+Looking for a React version, find it [here](https://www.npmjs.com/package/react-bottom-sheet-dialog)
+
 ## Features
 
 - Customizable snap points
