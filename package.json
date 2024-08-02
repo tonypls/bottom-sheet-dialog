@@ -1,6 +1,6 @@
 {
   "name": "bottom-sheet-dialog",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A lightweight TypeScript bottom sheet dialog component for web applications",
   "main": "dist/index.js",
   "module": "dist/index.js",
