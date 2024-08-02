@@ -36,7 +36,6 @@ function isExcludedElement(props, target) {
 }
 export function createBottomSheet(element, props) {
     const { backgroundColor = "white" } = props;
-    console.log("sda");
     const state = {
         currentSnap: 0,
         childrenHeight: 0,
@@ -45,7 +44,6 @@ export function createBottomSheet(element, props) {
     const backdropElement = createBackdropElement(backgroundColor);
     const childrenElement = element.children[0];
     function init() {
-        console.log("init");
         setupElementStyles(element);
         element.append(backdropElement);
         updateChildrenHeight();

@@ -61,7 +61,6 @@ export function createBottomSheet(
   props: BottomSheetProps
 ) {
   const { backgroundColor = "white" } = props;
-  console.log("sda");
 
   const state = {
     currentSnap: 0,
@@ -73,7 +72,6 @@ export function createBottomSheet(
   const childrenElement = element.children[0] as HTMLElement;
 
   function init(): () => void {
-    console.log("init");
     setupElementStyles(element);
     element.append(backdropElement);
     updateChildrenHeight();
